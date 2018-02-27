@@ -16,13 +16,15 @@
 #import "UIImage+Compose.h"
 #import "UIImageView+Boder.h"
 #import "SUContainerView.h"
+#import "UIImage+Border.h"
+#import "UIImageViewDecorator.h"
 
 @interface FactoryVC ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property(nonatomic, strong) id                         menuPanel;
 @property(nonatomic, strong) UIImageView                *preView;
 @property(nonatomic, strong) UICollectionView           *sourceImages;
 @property(nonatomic, strong) UICollectionView           *effectImagesView;
-@property(nonatomic, strong) UIImageView                *effectImageView;
+@property(nonatomic, strong) UIImageViewDecorator       *effectImageView;
 @property(nonatomic, strong) UICollectionViewFlowLayout *flowLayout;
 @property(nonatomic, strong) NSArray<UIImage *>         *images;
 @property(nonatomic, strong) NSArray<UIImage *>         *effectImages;
@@ -41,6 +43,8 @@
 
 static NSString * const reuseID = @"reuseCell";
 static NSString * const reuseID1 = @"reuseCell";
+static BOOL canScale = NO;
+
 @implementation FactoryVC
 
 #pragma mark - System Life Cycle
@@ -60,7 +64,7 @@ static NSString * const reuseID1 = @"reuseCell";
     self.images        = [self fetchImages:@"448_251"];
     self.preView.size = CGSizeMake(SCREEN_WIDTH, SCREEN_WIDTH*self.gifSize.height/self.gifSize.width);
     // Step2 特效图片
-    self.effectImages  = [self fetchEffectImages:@"round"];
+    self.effectImages  = [self fetchEffectImages:@"fireball"];
     
     // Step3 关键帧
     NSArray *keyFrames = [self keyFrame];
@@ -94,13 +98,19 @@ static NSString * const reuseID1 = @"reuseCell";
     self.effectImagesView.dataSource = self;
     
     UIPanGestureRecognizer *panGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanAction:)];
-    [self.effectImageView addGestureRecognizer:panGR];
+    [self.effectImageView.imageView addGestureRecognizer:panGR];
 
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapAction:)];
-    [self.effectImageView addGestureRecognizer:tapGR];
+    [self.effectImageView.imageView addGestureRecognizer:tapGR];
+    
+    UIPanGestureRecognizer *scalePanGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onScaleAction:)];
+    [self.effectImageView.scaleButton addGestureRecognizer:scalePanGR];
+    
+    [self.effectImageView.removeButton addTarget:self action:@selector(onRemoveAction:) forControlEvents:UIControlEventTouchUpInside];
     
     self.preView.userInteractionEnabled         = YES;
     self.effectImageView.userInteractionEnabled = YES;
+    self.effectImageView.imageView.userInteractionEnabled = YES;
     
     self.submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.submitButton.backgroundColor = [UIColor redColor];
@@ -110,8 +120,49 @@ static NSString * const reuseID1 = @"reuseCell";
     [self.view addSubview:self.submitButton];
 }
 
-- (void)onTapAction:(UITapGestureRecognizer *)sender {
+#pragma mark - Target-Action
+
+- (void)onRemoveAction:(id)sender {
+    self.effectImageView.hidden = YES;
+    self.images[self.sourceIdx].frameProperty = nil;
+}
+
+- (void)onScaleAction:(UIPanGestureRecognizer *)sender {
+    UIView *view = self.effectImageView;
+    CGRect frame = view.frame;
+    CGPoint offset = [sender translationInView:self.preView];
     
+    // 缩放
+    if(canScale) {
+        CGFloat targetWidth  = frame.size.width+offset.x;
+        CGFloat targetHeight = frame.size.height+offset.y;
+        if(targetWidth<10){
+            targetWidth = 10;
+        }else if(targetWidth + frame.origin.x>self.preView.size.width) {
+            targetWidth = self.preView.size.width - frame.origin.x;
+        }
+        
+        if(targetHeight<10) {
+            targetHeight = 10;
+        }else if(targetHeight + frame.origin.y> self.preView.size.height) {
+            targetHeight = self.preView.size.height - frame.origin.y;
+        }
+        
+        view.frame = CGRectMake(frame.origin.x, frame.origin.y, targetWidth, targetHeight);
+        NSLog(@"%@", view);
+        [sender setTranslation:CGPointZero inView:self.preView];
+        return;
+    }
+}
+
+- (void)onTapAction:(UITapGestureRecognizer *)sender {
+    if(!canScale) {
+        self.effectImageView.image = [self.effectImages[self.effectIdx] imageWithDashBorder];
+        canScale = YES;
+    }else{
+        self.effectImageView.image = self.effectImages[self.effectIdx];
+        canScale = NO;
+    }
 }
 
 - (void)onSubmitAction:(id)sender {
@@ -137,9 +188,32 @@ static NSString * const reuseID1 = @"reuseCell";
 }
 
 - (void)onPanAction:(UIPanGestureRecognizer *)sender {
-    UIView *view = sender.view;
+    UIView *view = self.effectImageView;
+//    CGRect frame = view.frame;
     CGPoint offset = [sender translationInView:self.preView];
-    CGPoint destination = CGPointMake(view.center.x + offset.x, view.center.y + offset.y);
+
+    // 缩放
+//    if(canScale) {
+//        CGFloat targetWidth  = frame.size.width+offset.x/10;
+//        CGFloat targetHeight = frame.size.height+offset.y/10;
+//        if(targetWidth<10){
+//            targetWidth = 10;
+//        }else if(targetWidth + frame.origin.x>self.preView.size.width) {
+//            targetWidth = self.preView.size.width - frame.origin.x;
+//        }
+//
+//        if(targetHeight<10) {
+//            targetHeight = 10;
+//        }else if(targetHeight + frame.origin.y> self.preView.size.height) {
+//            targetHeight = self.preView.size.height - frame.origin.y;
+//        }
+//
+//        view.frame = CGRectMake(frame.origin.x, frame.origin.y, targetWidth, targetHeight);
+//        [sender setTranslation:CGPointZero inView:self.preView];
+//        NSLog(@"imageView GR");
+//        return;
+//    }else {    // 拖动
+        CGPoint destination = CGPointMake(view.center.x + offset.x, view.center.y + offset.y);
     if(destination.x+view.size.width/2 > self.preView.size.width) {
         destination.x = self.preView.size.width - view.size.width/2;
     }else if(destination.x-view.size.width/2 < 0) {
@@ -153,6 +227,7 @@ static NSString * const reuseID1 = @"reuseCell";
     }
     
     view.center = destination;
+//    }
     [sender setTranslation:CGPointZero inView:self.preView];
 }
 
@@ -314,6 +389,8 @@ static NSString * const reuseID1 = @"reuseCell";
     CGFloat gap = sourceCount/ (CGFloat)effectCount;
     CGFloat   rectGap     = (toRect.origin.x - fromRect.origin.x)/sourceCount;
     CGFloat   rectVetGap  = (toRect.origin.y - fromRect.origin.y)/sourceCount;
+    CGFloat   sizeWidthGap  = (toRect.size.width - fromRect.size.width)/sourceCount;
+    CGFloat   sizeHeightGap = (toRect.size.height - fromRect.size.height)/sourceCount;
     
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:sourceEnd - sourceStart];
     NSLog(@">>>>> 原始起始:%zi 结束:%zi 水平:%lf 垂直:%lf", sourceStart, sourceEnd, rectGap, rectVetGap);
@@ -337,12 +414,12 @@ static NSString * const reuseID1 = @"reuseCell";
                 keyProperty.rect      = from.rect;
                 self.images[sourceIdx].frameProperty = keyProperty;
             }
-            SUKeyFrameProperty *effectProperty   = images[effectEnd].frameProperty;
+            SUKeyFrameProperty *effectProperty   = images[effectStart].frameProperty;
             CGRect             effectRect        = effectProperty.rect;
             SUKeyFrameProperty *keyFrameProperty = self.images[sourceIdx].frameProperty;
             keyFrameProperty.effectIdx = idx;
             keyFrameProperty.image     = images[idx];
-            keyFrameProperty.rect      = CGRectMake(fromRect.origin.x+i*rectGap, fromRect.origin.y+i*rectVetGap, effectRect.size.width, effectRect.size.height);
+            keyFrameProperty.rect      = CGRectMake(fromRect.origin.x+i*rectGap, fromRect.origin.y+i*rectVetGap, effectRect.size.width+sizeWidthGap*i, effectRect.size.height+sizeHeightGap*i);
             NSLog(@">>>>> 插入特效:%zi 特效:%zi rect:%@", sourceIdx, idx, NSStringFromCGRect(keyFrameProperty.rect));
         }
     }else {     // 减少frame
@@ -364,12 +441,12 @@ static NSString * const reuseID1 = @"reuseCell";
                 keyProperty.rect      = from.rect;
                 self.images[sourceIdx].frameProperty = keyProperty;
             }
-            SUKeyFrameProperty *effectProperty   = images[effectEnd].frameProperty;
+            SUKeyFrameProperty *effectProperty   = images[effectStart].frameProperty;
             CGRect             effectRect        = effectProperty.rect;
             SUKeyFrameProperty *keyFrameProperty = self.images[sourceIdx].frameProperty;
             keyFrameProperty.effectIdx = idx;
             keyFrameProperty.image     = images[idx];
-            keyFrameProperty.rect      = CGRectMake(fromRect.origin.x+i*rectGap, fromRect.origin.y+i*rectVetGap, effectRect.size.width, effectRect.size.height);
+            keyFrameProperty.rect      = CGRectMake(fromRect.origin.x+i*rectGap, fromRect.origin.y+i*rectVetGap, effectRect.size.width+sizeWidthGap*i, effectRect.size.height+sizeHeightGap*i);
             NSLog(@">>>>> 插入特效2:%zi 特效:%zi rect:%@", sourceIdx, idx, NSStringFromCGRect(keyFrameProperty.rect));
         }
     }
@@ -444,10 +521,12 @@ static NSString * const reuseID1 = @"reuseCell";
         }
     }else {
         // 1. 手动添加效果图片
+        canScale = NO;
         self.effectIdx              = indexPath.item;
         self.effectImageView.image  = self.effectImages[indexPath.item];
         self.effectImageView.hidden = NO;
         self.effectImageView.center = CGPointMake(self.preView.size.width/2, self.preView.size.height/2);
+        self.effectImageView.size   = CGSizeMake(40, 40);
     }
     //    self.skeletionLayer.contents = (__bridge id)(self.skeletonImages[indexPath.section].CGImage);
 //    NSIndexSet *set = [[NSIndexSet alloc] initWithIndex:indexPath.section];
@@ -518,9 +597,10 @@ static NSString * const reuseID1 = @"reuseCell";
     return _flowLayout;
 }
 
-- (UIImageView *)effectImageView {
+- (UIImageViewDecorator *)effectImageView {
     if(!_effectImageView) {
-        _effectImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        _effectImageView = [[UIImageViewDecorator alloc] initWithImageView:iv];
         _effectImageView.hidden = YES;
     }
     return _effectImageView;

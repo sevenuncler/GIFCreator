@@ -22,6 +22,10 @@
 		873A2AD920307BF000BD6F0F /* Edition3VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 873A2AD820307BF000BD6F0F /* Edition3VC.m */; };
 		873C52E320430B3000B61548 /* UIImageView+Boder.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C52E220430B3000B61548 /* UIImageView+Boder.m */; };
 		873C52E62043921900B61548 /* SUContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C52E52043921900B61548 /* SUContainerView.m */; };
+		873C52E92044434500B61548 /* UIImage+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C52E82044434500B61548 /* UIImage+Border.m */; };
+		873C52EB20444AD300B61548 /* fireball.gif in Resources */ = {isa = PBXBuildFile; fileRef = 873C52EA20444AD300B61548 /* fireball.gif */; };
+		873C52EE20445B3000B61548 /* UIImageView+Decorator.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C52ED20445B3000B61548 /* UIImageView+Decorator.m */; };
+		873C52F120445C7200B61548 /* UIImageViewDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C52F020445C7200B61548 /* UIImageViewDecorator.m */; };
 		878677F2203080350067DC3B /* UIImage+Compose.m in Sources */ = {isa = PBXBuildFile; fileRef = 878677F1203080350067DC3B /* UIImage+Compose.m */; };
 		878677F52030886D0067DC3B /* SUKeyFrameProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 878677F42030886D0067DC3B /* SUKeyFrameProperty.m */; };
 		878677F9203092C40067DC3B /* SAMCubicSpline.m in Sources */ = {isa = PBXBuildFile; fileRef = 878677F8203092C40067DC3B /* SAMCubicSpline.m */; };
@@ -65,6 +69,13 @@
 		873C52E220430B3000B61548 /* UIImageView+Boder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Boder.m"; sourceTree = "<group>"; };
 		873C52E42043921900B61548 /* SUContainerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SUContainerView.h; sourceTree = "<group>"; };
 		873C52E52043921900B61548 /* SUContainerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SUContainerView.m; sourceTree = "<group>"; };
+		873C52E72044434500B61548 /* UIImage+Border.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Border.h"; sourceTree = "<group>"; };
+		873C52E82044434500B61548 /* UIImage+Border.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Border.m"; sourceTree = "<group>"; };
+		873C52EA20444AD300B61548 /* fireball.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = fireball.gif; sourceTree = "<group>"; };
+		873C52EC20445B3000B61548 /* UIImageView+Decorator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Decorator.h"; sourceTree = "<group>"; };
+		873C52ED20445B3000B61548 /* UIImageView+Decorator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Decorator.m"; sourceTree = "<group>"; };
+		873C52EF20445C7200B61548 /* UIImageViewDecorator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIImageViewDecorator.h; sourceTree = "<group>"; };
+		873C52F020445C7200B61548 /* UIImageViewDecorator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIImageViewDecorator.m; sourceTree = "<group>"; };
 		878677F0203080350067DC3B /* UIImage+Compose.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Compose.h"; sourceTree = "<group>"; };
 		878677F1203080350067DC3B /* UIImage+Compose.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Compose.m"; sourceTree = "<group>"; };
 		878677F32030886D0067DC3B /* SUKeyFrameProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SUKeyFrameProperty.h; sourceTree = "<group>"; };
@@ -168,6 +179,7 @@
 		080F46B51F0A4AF400588C92 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				873C52EA20444AD300B61548 /* fireball.gif */,
 				873A2AD3202E010600BD6F0F /* shq.gif */,
 				87B83EF4202DF26C000A8818 /* iversion.gif */,
 				87B83EF0202CA4F0000A8818 /* foot.gif */,
@@ -235,6 +247,12 @@
 				878677F1203080350067DC3B /* UIImage+Compose.m */,
 				873C52E120430B3000B61548 /* UIImageView+Boder.h */,
 				873C52E220430B3000B61548 /* UIImageView+Boder.m */,
+				873C52E72044434500B61548 /* UIImage+Border.h */,
+				873C52E82044434500B61548 /* UIImage+Border.m */,
+				873C52EC20445B3000B61548 /* UIImageView+Decorator.h */,
+				873C52ED20445B3000B61548 /* UIImageView+Decorator.m */,
+				873C52EF20445C7200B61548 /* UIImageViewDecorator.h */,
+				873C52F020445C7200B61548 /* UIImageViewDecorator.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -330,6 +348,7 @@
 				080F46B71F0A4AFA00588C92 /* pic1.jpg in Resources */,
 				080F46951F09821200588C92 /* LaunchScreen.storyboard in Resources */,
 				080F46921F09821200588C92 /* Assets.xcassets in Resources */,
+				873C52EB20444AD300B61548 /* fireball.gif in Resources */,
 				873A2AD4202E010600BD6F0F /* shq.gif in Resources */,
 				080F46901F09821200588C92 /* Main.storyboard in Resources */,
 				87B83EEB202CA1EC000A8818 /* down.gif in Resources */,
@@ -356,6 +375,7 @@
 				080F46B41F0A46E800588C92 /* UIImage+Resize.swift in Sources */,
 				080F46AF1F0A45D200588C92 /* HED_so3.mlmodel in Sources */,
 				87B83EDB202C9694000A8818 /* SUPenView.m in Sources */,
+				873C52EE20445B3000B61548 /* UIImageView+Decorator.m in Sources */,
 				080F46B21F0A464C00588C92 /* UIImage+CVPixelBuffer.swift in Sources */,
 				87B83EDE202C9694000A8818 /* SUGIFManager.m in Sources */,
 				080F46AD1F0A451E00588C92 /* HED_so.mlmodel in Sources */,
@@ -370,6 +390,8 @@
 				878677FC2035421A0067DC3B /* FactoryVC.m in Sources */,
 				878677F9203092C40067DC3B /* SAMCubicSpline.m in Sources */,
 				878677F2203080350067DC3B /* UIImage+Compose.m in Sources */,
+				873C52F120445C7200B61548 /* UIImageViewDecorator.m in Sources */,
+				873C52E92044434500B61548 /* UIImage+Border.m in Sources */,
 				878677F52030886D0067DC3B /* SUKeyFrameProperty.m in Sources */,
 				873A2AD920307BF000BD6F0F /* Edition3VC.m in Sources */,
 			);
