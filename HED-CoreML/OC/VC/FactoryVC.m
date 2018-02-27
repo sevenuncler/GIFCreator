@@ -35,10 +35,17 @@
 @property(nonatomic, assign) NSInteger                  sourceIdx;
 @property(nonatomic, assign) NSInteger                  effectIdx;
 @property(nonatomic, strong) UIButton                   *submitButton;
-@property(nonatomic, strong) SUContainerView            *containerView;
 
 // GIF基本信息
 @property(nonatomic, assign) CGSize                     gifSize;
+
+// 顶部视图
+@property(nonatomic, strong) UIButton         *effectOptionButton; // 自定义特效添加
+@property(nonatomic, strong) UICollectionView *defaultEffectsView; // 提供的特效
+// 底部视图
+@property(nonatomic, strong) UIButton         *gifOptionButton;
+@property(nonatomic, strong) UIButton         *videoOptionButton;
+@property(nonatomic, strong) UIView           *containerView;
 @end
 
 static NSString * const reuseID = @"reuseCell";
@@ -51,20 +58,29 @@ static BOOL canScale = NO;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // Do any additional setup after loading the v
+    
+    [self.view addSubview:self.effectOptionButton];
+    [self.view addSubview:self.defaultEffectsView];
+    
+    
     [self.view addSubview:self.preView];
-    [self.view addSubview:self.sourceImages];
     [self.view addSubview:self.effectImagesView];
-    [self.view addSubview:self.containerView];
     [self.preView addSubview:self.effectImageView];
     self.targetSize = CGSizeMake(SCREEN_WIDTH, 270);
+    
+    [self.containerView addSubview:self.gifOptionButton];
+    [self.containerView addSubview:self.videoOptionButton];
+    [self.containerView addSubview:self.sourceImages];
+    [self.view addSubview:self.containerView];
+
     [self setUpViewConfig];
     
     // Step1 加载图片
     self.images        = [self fetchImages:@"448_251"];
     self.preView.size = CGSizeMake(SCREEN_WIDTH, SCREEN_WIDTH*self.gifSize.height/self.gifSize.width);
     // Step2 特效图片
-    self.effectImages  = [self fetchEffectImages:@"fireball"];
+    self.effectImages  = [self fetchEffectImages:@"ball1"];
     
     // Step3 关键帧
     NSArray *keyFrames = [self keyFrame];
@@ -82,7 +98,20 @@ static BOOL canScale = NO;
     self.preView.centerY = self.view.size.height / 2;
     self.sourceImages.botton = self.view.size.height;
     
-    self.effectImagesView.top = 64;
+    self.effectOptionButton.top = 64;
+    self.defaultEffectsView.top = 64;
+    
+    self.effectImagesView.left = SCREEN_WIDTH;
+    self.effectImagesView.top  = 64;
+    
+    self.containerView.botton = SCREEN_HEIGHT;
+    
+    self.gifOptionButton.center = CGPointMake(self.containerView.size.width/2 - 30, self.containerView.size.height/2);
+    self.videoOptionButton.center = CGPointMake(self.containerView.size.width/2 + 30, self.containerView.size.height/2);
+    
+    self.sourceImages.left = SCREEN_WIDTH;
+    self.sourceImages.centerY = self.containerView.size.height/2;
+    
 }
 
 #pragma mark - Privte Method
@@ -90,6 +119,7 @@ static BOOL canScale = NO;
 - (void)setUpViewConfig {
     [self.sourceImages registerClass:[SUFrameCell class] forCellWithReuseIdentifier:reuseID];
     [self.effectImagesView registerClass:[SUFrameCell class] forCellWithReuseIdentifier:reuseID1];
+    
     
     self.sourceImages.dataSource = self;
     self.sourceImages.delegate   = self;
@@ -115,12 +145,55 @@ static BOOL canScale = NO;
     self.submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.submitButton.backgroundColor = [UIColor redColor];
     self.submitButton.size = CGSizeMake(100, 40);
-    self.submitButton.center = CGPointMake(100, 100);
+    self.submitButton.center = CGPointMake(165, 200);
     [self.submitButton addTarget:self action:@selector(onSubmitAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.submitButton];
+    
+    
+    // 顶部按钮
+    [self.effectOptionButton addTarget:self action:@selector(onCustomizeAction:) forControlEvents:UIControlEventTouchUpInside];
+    //底部按钮
+    [self.gifOptionButton addTarget:self action:@selector(onGifAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.videoOptionButton addTarget:self action:@selector(onVideoAction:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark - Target-Action
+
+- (void)onGifAction:(UIButton *)sender {
+    if(!sender.isSelected) {
+        [UIView animateWithDuration:0.25f delay:0 usingSpringWithDamping:1 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.sourceImages.left = 60;
+            self.gifOptionButton.centerX = 0;
+        } completion:nil];
+        sender.selected = YES;
+    }else {
+        [UIView animateWithDuration:0.25f delay:0 usingSpringWithDamping:1 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.sourceImages.left = SCREEN_WIDTH;
+            self.gifOptionButton.centerX = self.containerView.size.width/2 - 30;
+        } completion:nil];
+        sender.selected = NO;
+    }
+}
+
+- (void)onVideoAction:(UIButton *)sender {
+    
+}
+
+- (void)onCustomizeAction:(UIButton *)sender {
+    if(!sender.isSelected) {
+        [UIView animateWithDuration:0.25f delay:0 usingSpringWithDamping:1 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.defaultEffectsView.left = - SCREEN_WIDTH;
+            self.effectImagesView.left = 60;
+        } completion:nil];
+        sender.selected = YES;
+    }else {
+        [UIView animateWithDuration:0.25f delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            self.defaultEffectsView.left = 60;
+            self.effectImagesView.left   = SCREEN_WIDTH;
+        } completion:nil];
+        sender.selected = NO;
+    }
+}
 
 - (void)onRemoveAction:(id)sender {
     self.effectImageView.hidden = YES;
@@ -602,6 +675,7 @@ static BOOL canScale = NO;
         UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
         _effectImageView = [[UIImageViewDecorator alloc] initWithImageView:iv];
         _effectImageView.hidden = YES;
+        _effectImageView.backgroundColor = [UIColor clearColor];
     }
     return _effectImageView;
 }
@@ -613,11 +687,54 @@ static BOOL canScale = NO;
     return _frameProperty;
 }
 
-- (SUContainerView *) containerView{
+- (UIButton *)effectOptionButton {
+    if(!_effectOptionButton) {
+        _effectOptionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _effectOptionButton.size = CGSizeMake(50, 50);
+        _effectOptionButton.backgroundColor = [UIColor blueColor];
+    }
+    return _effectOptionButton;
+}
+
+- (UICollectionView *)defaultEffectsView {
+    if(!_defaultEffectsView) {
+        UICollectionViewFlowLayout *_flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        _flowLayout.itemSize = CGSizeMake(45, 45);
+        _flowLayout.minimumLineSpacing = 0;
+        _flowLayout.minimumInteritemSpacing = 5;
+        _flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        _defaultEffectsView = [[UICollectionView alloc] initWithFrame:CGRectMake(60, 0, SCREEN_WIDTH, 55) collectionViewLayout:_flowLayout];
+        _defaultEffectsView.backgroundColor = [UIColor redColor];
+        
+    }
+    return _defaultEffectsView;
+}
+
+- (UIView *)containerView {
     if(!_containerView) {
-        _containerView = [[SUContainerView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+        _containerView = [[UIView alloc] init];
+        _containerView.size = CGSizeMake(SCREEN_WIDTH, 70);
+        _containerView.backgroundColor = [UIColor blueColor];
     }
     return _containerView;
+}
+
+- (UIButton *)gifOptionButton {
+    if(!_gifOptionButton) {
+        _gifOptionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _gifOptionButton.size = CGSizeMake(50, 50);
+        _gifOptionButton.backgroundColor = [UIColor redColor];
+    }
+    return _gifOptionButton;
+}
+
+- (UIButton *)videoOptionButton {
+    if(!_videoOptionButton) {
+        _videoOptionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _videoOptionButton.size = CGSizeMake(50, 50);
+        _videoOptionButton.backgroundColor = [UIColor redColor];
+    }
+    return _videoOptionButton;
 }
 
 @end

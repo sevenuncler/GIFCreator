@@ -26,6 +26,8 @@
 		873C52EB20444AD300B61548 /* fireball.gif in Resources */ = {isa = PBXBuildFile; fileRef = 873C52EA20444AD300B61548 /* fireball.gif */; };
 		873C52EE20445B3000B61548 /* UIImageView+Decorator.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C52ED20445B3000B61548 /* UIImageView+Decorator.m */; };
 		873C52F120445C7200B61548 /* UIImageViewDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C52F020445C7200B61548 /* UIImageViewDecorator.m */; };
+		873C52F32045888500B61548 /* ball1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 873C52F22045888500B61548 /* ball1.gif */; };
+		873C52FC20459FBD00B61548 /* EffectsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C52FB20459FBD00B61548 /* EffectsVC.m */; };
 		878677F2203080350067DC3B /* UIImage+Compose.m in Sources */ = {isa = PBXBuildFile; fileRef = 878677F1203080350067DC3B /* UIImage+Compose.m */; };
 		878677F52030886D0067DC3B /* SUKeyFrameProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 878677F42030886D0067DC3B /* SUKeyFrameProperty.m */; };
 		878677F9203092C40067DC3B /* SAMCubicSpline.m in Sources */ = {isa = PBXBuildFile; fileRef = 878677F8203092C40067DC3B /* SAMCubicSpline.m */; };
@@ -76,6 +78,9 @@
 		873C52ED20445B3000B61548 /* UIImageView+Decorator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Decorator.m"; sourceTree = "<group>"; };
 		873C52EF20445C7200B61548 /* UIImageViewDecorator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIImageViewDecorator.h; sourceTree = "<group>"; };
 		873C52F020445C7200B61548 /* UIImageViewDecorator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIImageViewDecorator.m; sourceTree = "<group>"; };
+		873C52F22045888500B61548 /* ball1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ball1.gif; sourceTree = "<group>"; };
+		873C52FA20459FBD00B61548 /* EffectsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EffectsVC.h; sourceTree = "<group>"; };
+		873C52FB20459FBD00B61548 /* EffectsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EffectsVC.m; sourceTree = "<group>"; };
 		878677F0203080350067DC3B /* UIImage+Compose.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Compose.h"; sourceTree = "<group>"; };
 		878677F1203080350067DC3B /* UIImage+Compose.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Compose.m"; sourceTree = "<group>"; };
 		878677F32030886D0067DC3B /* SUKeyFrameProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SUKeyFrameProperty.h; sourceTree = "<group>"; };
@@ -179,6 +184,7 @@
 		080F46B51F0A4AF400588C92 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				873C52F22045888500B61548 /* ball1.gif */,
 				873C52EA20444AD300B61548 /* fireball.gif */,
 				873A2AD3202E010600BD6F0F /* shq.gif */,
 				87B83EF4202DF26C000A8818 /* iversion.gif */,
@@ -228,19 +234,68 @@
 		873A2ADC20307E0800BD6F0F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		873C52F420459F0800B61548 /* Section */ = {
+			isa = PBXGroup;
+			children = (
+				873C52F520459F1900B61548 /* Effects */,
+			);
+			path = Section;
+			sourceTree = "<group>";
+		};
+		873C52F520459F1900B61548 /* Effects */ = {
+			isa = PBXGroup;
+			children = (
+				873C52F920459F6300B61548 /* ViewModel */,
+				873C52F820459F5700B61548 /* Controller */,
+				873C52F720459F4F00B61548 /* View */,
+				873C52F620459F4600B61548 /* Model */,
+			);
+			path = Effects;
+			sourceTree = "<group>";
+		};
+		873C52F620459F4600B61548 /* Model */ = {
+			isa = PBXGroup;
+			children = (
 				878677F32030886D0067DC3B /* SUKeyFrameProperty.h */,
 				878677F42030886D0067DC3B /* SUKeyFrameProperty.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
+		873C52F720459F4F00B61548 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		873C52F820459F5700B61548 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				873C52FA20459FBD00B61548 /* EffectsVC.h */,
+				873C52FB20459FBD00B61548 /* EffectsVC.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		873C52F920459F6300B61548 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		878677EC20307E740067DC3B /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				878677F6203092C40067DC3B /* SAMCubicSpline */,
 				87867800203543A10067DC3B /* Macros.h */,
 				878677FD203543540067DC3B /* UIView+Layout.h */,
 				878677FE203543540067DC3B /* UIView+Layout.m */,
-				878677F6203092C40067DC3B /* SAMCubicSpline */,
 				87B83ECC202C9694000A8818 /* SUGIFManager.h */,
 				87B83ED3202C9694000A8818 /* SUGIFManager.m */,
 				878677F0203080350067DC3B /* UIImage+Compose.h */,
@@ -270,6 +325,7 @@
 		87B83ECB202C9694000A8818 /* OC */ = {
 			isa = PBXGroup;
 			children = (
+				873C52F420459F0800B61548 /* Section */,
 				878677EC20307E740067DC3B /* Service */,
 				873A2ADC20307E0800BD6F0F /* Model */,
 				873A2ADB20307DFB00BD6F0F /* View */,
@@ -348,6 +404,7 @@
 				080F46B71F0A4AFA00588C92 /* pic1.jpg in Resources */,
 				080F46951F09821200588C92 /* LaunchScreen.storyboard in Resources */,
 				080F46921F09821200588C92 /* Assets.xcassets in Resources */,
+				873C52F32045888500B61548 /* ball1.gif in Resources */,
 				873C52EB20444AD300B61548 /* fireball.gif in Resources */,
 				873A2AD4202E010600BD6F0F /* shq.gif in Resources */,
 				080F46901F09821200588C92 /* Main.storyboard in Resources */,
@@ -384,6 +441,7 @@
 				87B83EDF202C9694000A8818 /* SUDrawToolView.m in Sources */,
 				878677FF203543540067DC3B /* UIView+Layout.m in Sources */,
 				080F46AC1F0A451E00588C92 /* HED_fuse.mlmodel in Sources */,
+				873C52FC20459FBD00B61548 /* EffectsVC.m in Sources */,
 				87B83EE0202C9694000A8818 /* SUFrameCell.m in Sources */,
 				87B83EDC202C9694000A8818 /* DrawVC.m in Sources */,
 				080F468B1F09821200588C92 /* AppDelegate.swift in Sources */,
