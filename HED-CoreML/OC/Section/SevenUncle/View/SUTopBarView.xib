@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SUTopBarView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Unf-to-sJ0">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <items>
+                        <barButtonItem image="image.png" style="plain" id="tBA-71-gg5"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="fn1-C9-ULQ"/>
+                        <barButtonItem style="plain" id="go8-tJ-hsx"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="e7G-XF-0hu"/>
+                        <barButtonItem style="done" id="AnT-64-8Lw"/>
+                    </items>
+                    <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </toolbar>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="centerBarButtonItem" destination="go8-tJ-hsx" id="s2E-cD-Xcz"/>
+                <outlet property="leftBarButtonItem" destination="tBA-71-gg5" id="E0s-mN-dwO"/>
+                <outlet property="rightBarButtonItem" destination="AnT-64-8Lw" id="fah-Q2-H8v"/>
+                <outlet property="toolBar" destination="Unf-to-sJ0" id="kGl-2H-BC0"/>
+            </connections>
+            <point key="canvasLocation" x="34.5" y="134"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="image.png" width="200" height="172"/>
+    </resources>
+</document>

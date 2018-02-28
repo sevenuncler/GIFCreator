@@ -18,6 +18,7 @@
 #import "SUContainerView.h"
 #import "UIImage+Border.h"
 #import "UIImageViewDecorator.h"
+#import "SUImagePickerViewController.h"
 
 @interface FactoryVC ()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property(nonatomic, strong) id                         menuPanel;
@@ -46,6 +47,9 @@
 @property(nonatomic, strong) UIButton         *gifOptionButton;
 @property(nonatomic, strong) UIButton         *videoOptionButton;
 @property(nonatomic, strong) UIView           *containerView;
+
+// 相册选择
+@property(nonatomic, strong) UIImagePickerController *picker;
 @end
 
 static NSString * const reuseID = @"reuseCell";
@@ -181,6 +185,9 @@ static BOOL canScale = NO;
 
 - (void)onCustomizeAction:(UIButton *)sender {
     if(!sender.isSelected) {
+        [self presentViewController:self.picker animated:YES completion:^{
+            
+        }];
         [UIView animateWithDuration:0.25f delay:0 usingSpringWithDamping:1 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.defaultEffectsView.left = - SCREEN_WIDTH;
             self.effectImagesView.left = 60;
@@ -568,6 +575,22 @@ static BOOL canScale = NO;
 
 }
 
+#pragma mark  UIImagePickerControllerDelegate   代理方法 (用来获取选中或者取消图片)
+
+// chose选中某张图片,内含参数info,图片的信息.(选中后调用此方法)
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary
+                                                                                               *)info {
+    
+    NSLog(@"%@", info);
+    
+}
+
+// 取消的时候调用此方法.
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    
+}
+
+
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -735,6 +758,21 @@ static BOOL canScale = NO;
         _videoOptionButton.backgroundColor = [UIColor redColor];
     }
     return _videoOptionButton;
+}
+
+- (UIImagePickerController *)picker {
+    if(!_picker) {
+        _picker = [[UIImagePickerController alloc] init];
+        // 初始化系统相册界面的VC.
+        // 设置VC的相关属性.
+        _picker.view.backgroundColor = [UIColor blueColor];
+        // 选择相片的来源类型(相机,图库,照片库).
+        UIImagePickerControllerSourceType sourcheType = UIImagePickerControllerSourceTypePhotoLibrary;
+        _picker.sourceType = sourcheType;
+        _picker.delegate = self;
+        _picker.allowsEditing = YES;
+    }
+    return _picker;
 }
 
 @end

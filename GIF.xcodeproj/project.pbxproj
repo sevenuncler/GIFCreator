@@ -28,6 +28,12 @@
 		873C52F120445C7200B61548 /* UIImageViewDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C52F020445C7200B61548 /* UIImageViewDecorator.m */; };
 		873C52F32045888500B61548 /* ball1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 873C52F22045888500B61548 /* ball1.gif */; };
 		873C52FC20459FBD00B61548 /* EffectsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C52FB20459FBD00B61548 /* EffectsVC.m */; };
+		873C53042046302000B61548 /* SUImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C53032046302000B61548 /* SUImagePickerViewController.m */; };
+		873C530A2046306100B61548 /* SUAlbumsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C53052046306100B61548 /* SUAlbumsTableViewCell.m */; };
+		873C530B2046306100B61548 /* SUAlbumsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 873C53072046306100B61548 /* SUAlbumsTableViewCell.xib */; };
+		873C530C2046306100B61548 /* SUImagePickerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C53092046306100B61548 /* SUImagePickerCollectionViewCell.m */; };
+		873C53152046319600B61548 /* SUTopBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 873C53122046319600B61548 /* SUTopBarView.xib */; };
+		873C53162046319600B61548 /* SUTopBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C53142046319600B61548 /* SUTopBarView.m */; };
 		878677F2203080350067DC3B /* UIImage+Compose.m in Sources */ = {isa = PBXBuildFile; fileRef = 878677F1203080350067DC3B /* UIImage+Compose.m */; };
 		878677F52030886D0067DC3B /* SUKeyFrameProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 878677F42030886D0067DC3B /* SUKeyFrameProperty.m */; };
 		878677F9203092C40067DC3B /* SAMCubicSpline.m in Sources */ = {isa = PBXBuildFile; fileRef = 878677F8203092C40067DC3B /* SAMCubicSpline.m */; };
@@ -81,6 +87,16 @@
 		873C52F22045888500B61548 /* ball1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ball1.gif; sourceTree = "<group>"; };
 		873C52FA20459FBD00B61548 /* EffectsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EffectsVC.h; sourceTree = "<group>"; };
 		873C52FB20459FBD00B61548 /* EffectsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EffectsVC.m; sourceTree = "<group>"; };
+		873C53022046302000B61548 /* SUImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUImagePickerViewController.h; sourceTree = "<group>"; };
+		873C53032046302000B61548 /* SUImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUImagePickerViewController.m; sourceTree = "<group>"; };
+		873C53052046306100B61548 /* SUAlbumsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUAlbumsTableViewCell.m; sourceTree = "<group>"; };
+		873C53062046306100B61548 /* SUImagePickerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUImagePickerCollectionViewCell.h; sourceTree = "<group>"; };
+		873C53072046306100B61548 /* SUAlbumsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SUAlbumsTableViewCell.xib; sourceTree = "<group>"; };
+		873C53082046306100B61548 /* SUAlbumsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUAlbumsTableViewCell.h; sourceTree = "<group>"; };
+		873C53092046306100B61548 /* SUImagePickerCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUImagePickerCollectionViewCell.m; sourceTree = "<group>"; };
+		873C53122046319600B61548 /* SUTopBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SUTopBarView.xib; sourceTree = "<group>"; };
+		873C53132046319600B61548 /* SUTopBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUTopBarView.h; sourceTree = "<group>"; };
+		873C53142046319600B61548 /* SUTopBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUTopBarView.m; sourceTree = "<group>"; };
 		878677F0203080350067DC3B /* UIImage+Compose.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Compose.h"; sourceTree = "<group>"; };
 		878677F1203080350067DC3B /* UIImage+Compose.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Compose.m"; sourceTree = "<group>"; };
 		878677F32030886D0067DC3B /* SUKeyFrameProperty.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SUKeyFrameProperty.h; sourceTree = "<group>"; };
@@ -206,8 +222,6 @@
 				87B83ED2202C9694000A8818 /* MainViewController.m */,
 				873A2AD720307BF000BD6F0F /* Edition3VC.h */,
 				873A2AD820307BF000BD6F0F /* Edition3VC.m */,
-				878677FA2035421A0067DC3B /* FactoryVC.h */,
-				878677FB2035421A0067DC3B /* FactoryVC.m */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -241,6 +255,7 @@
 		873C52F420459F0800B61548 /* Section */ = {
 			isa = PBXGroup;
 			children = (
+				873C52FD20462FDD00B61548 /* SevenUncle */,
 				873C52F520459F1900B61548 /* Effects */,
 			);
 			path = Section;
@@ -278,11 +293,62 @@
 			children = (
 				873C52FA20459FBD00B61548 /* EffectsVC.h */,
 				873C52FB20459FBD00B61548 /* EffectsVC.m */,
+				878677FA2035421A0067DC3B /* FactoryVC.h */,
+				878677FB2035421A0067DC3B /* FactoryVC.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
 		};
 		873C52F920459F6300B61548 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		873C52FD20462FDD00B61548 /* SevenUncle */ = {
+			isa = PBXGroup;
+			children = (
+				873C530120462FFC00B61548 /* ViewModel */,
+				873C530020462FF700B61548 /* Controller */,
+				873C52FF20462FF200B61548 /* View */,
+				873C52FE20462FEB00B61548 /* Model */,
+			);
+			path = SevenUncle;
+			sourceTree = "<group>";
+		};
+		873C52FE20462FEB00B61548 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		873C52FF20462FF200B61548 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				873C53132046319600B61548 /* SUTopBarView.h */,
+				873C53142046319600B61548 /* SUTopBarView.m */,
+				873C53122046319600B61548 /* SUTopBarView.xib */,
+				873C53082046306100B61548 /* SUAlbumsTableViewCell.h */,
+				873C53052046306100B61548 /* SUAlbumsTableViewCell.m */,
+				873C53072046306100B61548 /* SUAlbumsTableViewCell.xib */,
+				873C53062046306100B61548 /* SUImagePickerCollectionViewCell.h */,
+				873C53092046306100B61548 /* SUImagePickerCollectionViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		873C530020462FF700B61548 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				873C53022046302000B61548 /* SUImagePickerViewController.h */,
+				873C53032046302000B61548 /* SUImagePickerViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		873C530120462FFC00B61548 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -413,6 +479,8 @@
 				87B83EEF202CA49D000A8818 /* round.gif in Resources */,
 				87B83EED202CA3BC000A8818 /* cp3.gif in Resources */,
 				87B83EF2202CA4F0000A8818 /* foot.gif in Resources */,
+				873C53152046319600B61548 /* SUTopBarView.xib in Resources */,
+				873C530B2046306100B61548 /* SUAlbumsTableViewCell.xib in Resources */,
 				87B83EF3202CA4F0000A8818 /* old.gif in Resources */,
 				87B83EE9202C9B53000A8818 /* 448_251.gif in Resources */,
 			);
@@ -429,8 +497,10 @@
 				87B83EDD202C9694000A8818 /* MainViewController.m in Sources */,
 				87B83EDA202C9694000A8818 /* SUDrawView.m in Sources */,
 				87B83EE6202C97A1000A8818 /* ModelManager.swift in Sources */,
+				873C53162046319600B61548 /* SUTopBarView.m in Sources */,
 				080F46B41F0A46E800588C92 /* UIImage+Resize.swift in Sources */,
 				080F46AF1F0A45D200588C92 /* HED_so3.mlmodel in Sources */,
+				873C530C2046306100B61548 /* SUImagePickerCollectionViewCell.m in Sources */,
 				87B83EDB202C9694000A8818 /* SUPenView.m in Sources */,
 				873C52EE20445B3000B61548 /* UIImageView+Decorator.m in Sources */,
 				080F46B21F0A464C00588C92 /* UIImage+CVPixelBuffer.swift in Sources */,
@@ -445,6 +515,8 @@
 				87B83EE0202C9694000A8818 /* SUFrameCell.m in Sources */,
 				87B83EDC202C9694000A8818 /* DrawVC.m in Sources */,
 				080F468B1F09821200588C92 /* AppDelegate.swift in Sources */,
+				873C530A2046306100B61548 /* SUAlbumsTableViewCell.m in Sources */,
+				873C53042046302000B61548 /* SUImagePickerViewController.m in Sources */,
 				878677FC2035421A0067DC3B /* FactoryVC.m in Sources */,
 				878677F9203092C40067DC3B /* SAMCubicSpline.m in Sources */,
 				878677F2203080350067DC3B /* UIImage+Compose.m in Sources */,
