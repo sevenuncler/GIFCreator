@@ -9,3 +9,4 @@
 #import "MainViewController.h"
 #import "Edition3VC.h"
 #import "FactoryVC.h"
+#import "SMStickerVC.h"

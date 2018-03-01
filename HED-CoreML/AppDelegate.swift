@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let naviVC = UINavigationController.init(rootViewController: FactoryVC.init())
+        let naviVC = UINavigationController.init(rootViewController: SMStickerVC.init())
         window?.rootViewController = naviVC
         window?.makeKeyAndVisible()
         return true
