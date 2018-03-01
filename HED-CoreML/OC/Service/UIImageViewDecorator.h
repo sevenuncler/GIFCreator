@@ -14,7 +14,9 @@
 @property(nonatomic, strong) UIButton *scaleButton;
 @property(nonatomic, strong) UIImage  *image;
 @property(nonatomic, strong) UIImageView *imageView;
+@property(nonatomic, assign, getter=isAdditionHidden) BOOL     addtionHidden;
 
 - (instancetype)initWithImageView:(UIImageView *)imageView;
+- (void)hiddenAddition:(BOOL)hidden;
 
 @end

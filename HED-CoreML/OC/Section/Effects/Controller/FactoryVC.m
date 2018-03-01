@@ -16,11 +16,11 @@
 #import "UIImage+Compose.h"
 #import "UIImageView+Boder.h"
 #import "SUContainerView.h"
-#import "UIImage+Border.h"
+//#import "UIImage+Border.h"
 #import "UIImageViewDecorator.h"
 #import "SUImagePickerViewController.h"
 
-@interface FactoryVC ()<UICollectionViewDelegate, UICollectionViewDataSource>
+@interface FactoryVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property(nonatomic, strong) id                         menuPanel;
 @property(nonatomic, strong) UIImageView                *preView;
 @property(nonatomic, strong) UICollectionView           *sourceImages;
@@ -47,14 +47,16 @@
 @property(nonatomic, strong) UIButton         *gifOptionButton;
 @property(nonatomic, strong) UIButton         *videoOptionButton;
 @property(nonatomic, strong) UIView           *containerView;
+@property(nonatomic, strong) UIButton         *sourceCollposeButton;
 
 // 相册选择
 @property(nonatomic, strong) UIImagePickerController *picker;
+@property(nonatomic, assign) BOOL                    isSourceSelected;
 @end
 
 static NSString * const reuseID = @"reuseCell";
 static NSString * const reuseID1 = @"reuseCell";
-static BOOL canScale = NO;
+static BOOL canScale = YES;
 
 @implementation FactoryVC
 
@@ -76,11 +78,13 @@ static BOOL canScale = NO;
     [self.containerView addSubview:self.gifOptionButton];
     [self.containerView addSubview:self.videoOptionButton];
     [self.containerView addSubview:self.sourceImages];
+    [self.containerView addSubview:self.sourceCollposeButton];
     [self.view addSubview:self.containerView];
 
     [self setUpViewConfig];
+    [self setUpNavigator];
     
-    // Step1 加载图片
+//    // Step1 加载图片
     self.images        = [self fetchImages:@"448_251"];
     self.preView.size = CGSizeMake(SCREEN_WIDTH, SCREEN_WIDTH*self.gifSize.height/self.gifSize.width);
     // Step2 特效图片
@@ -112,10 +116,24 @@ static BOOL canScale = NO;
     
     self.gifOptionButton.center = CGPointMake(self.containerView.size.width/2 - 30, self.containerView.size.height/2);
     self.videoOptionButton.center = CGPointMake(self.containerView.size.width/2 + 30, self.containerView.size.height/2);
+    self.sourceCollposeButton.centerY = self.gifOptionButton.centerY;
     
     self.sourceImages.left = SCREEN_WIDTH;
     self.sourceImages.centerY = self.containerView.size.height/2;
     
+    
+}
+
+- (void)setUpNavigator {
+    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"导出" style:UIBarButtonItemStylePlain target:self action:@selector(onConductAction:)];
+    self.navigationItem.rightBarButtonItem = rightBarButtonItem;
+    
+    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(onBackAction:)];
+    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
+    
+//    UIBarButtonItem *centerBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"预览" style:UIBarButtonItemStylePlain target:self action:@selector(onPreviewAction:)];
+    self.navigationItem.title = @"预览";
+
 }
 
 #pragma mark - Privte Method
@@ -151,7 +169,7 @@ static BOOL canScale = NO;
     self.submitButton.size = CGSizeMake(100, 40);
     self.submitButton.center = CGPointMake(165, 200);
     [self.submitButton addTarget:self action:@selector(onSubmitAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.submitButton];
+//    [self.view addSubview:self.submitButton];
     
     
     // 顶部按钮
@@ -159,24 +177,78 @@ static BOOL canScale = NO;
     //底部按钮
     [self.gifOptionButton addTarget:self action:@selector(onGifAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.videoOptionButton addTarget:self action:@selector(onVideoAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.sourceCollposeButton addTarget:self action:@selector(onCollposeAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.sourceCollposeButton.hidden = YES;
 }
 
 #pragma mark - Target-Action
 
-- (void)onGifAction:(UIButton *)sender {
+- (void)onBackAction:(id)sender {
+    
+}
+
+- (void)onPreviewAction:(id)sender {
+    
+}
+
+- (void)onConductAction:(id)sender {
+    self.cubicSpline = [self smoothLineWithArray:self.images];
+    
+    SUKeyFrameProperty *currentProperty;
+    NSMutableArray *result = [NSMutableArray array];
+    for (UIImage *image in self.images) {
+        if(image.frameProperty && image.isKeyFrame) {
+            if(currentProperty == nil) {
+                currentProperty = image.frameProperty;
+            }else {
+                NSArray *array = [self caculateKeyFrameFrom:currentProperty toFrame:image.frameProperty WithImages:self.effectImages];
+                currentProperty = image.frameProperty;
+                [result addObjectsFromArray:array];
+            }
+        }
+    }
+    [self conductGIF:self.images withEffectImages:self.effectImages];
+}
+
+- (void)onCollposeAction:(UIButton *)sender {
     if(!sender.isSelected) {
         [UIView animateWithDuration:0.25f delay:0 usingSpringWithDamping:1 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            self.sourceImages.left = 60;
-            self.gifOptionButton.centerX = 0;
+            self.gifOptionButton.alpha   = 1;
+            self.videoOptionButton.alpha = 1;
+            self.sourceImages.left = SCREEN_WIDTH;
+            self.sourceCollposeButton.centerX = SCREEN_WIDTH;
         } completion:nil];
         sender.selected = YES;
     }else {
-        [UIView animateWithDuration:0.25f delay:0 usingSpringWithDamping:1 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            self.sourceImages.left = SCREEN_WIDTH;
-            self.gifOptionButton.centerX = self.containerView.size.width/2 - 30;
+        [UIView animateWithDuration:1.f delay:0 usingSpringWithDamping:1 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.sourceImages.left = 60;
+            //                self.gifOptionButton.centerX = 0;
+            self.sourceCollposeButton.centerX = 0;
+            self.sourceCollposeButton.hidden  = NO;
+            self.gifOptionButton.alpha   = 0;
+            self.videoOptionButton.alpha = 0;
         } completion:nil];
         sender.selected = NO;
     }
+}
+
+- (void)onGifAction:(UIButton *)sender {
+//    if(!sender.isSelected) {
+        self.isSourceSelected = YES;
+        sender.selected = YES;
+
+        [self presentViewController:self.picker animated:YES completion:^{
+            [UIView animateWithDuration:1.f delay:0 usingSpringWithDamping:1 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                self.sourceImages.left = 60;
+//                self.gifOptionButton.centerX = 0;
+                self.sourceCollposeButton.centerX = 0;
+                self.sourceCollposeButton.hidden  = NO;
+            } completion:nil];
+        }];
+        
+//    }else {
+//
+//    }
 }
 
 - (void)onVideoAction:(UIButton *)sender {
@@ -193,6 +265,7 @@ static BOOL canScale = NO;
             self.effectImagesView.left = 60;
         } completion:nil];
         sender.selected = YES;
+        self.isSourceSelected = NO;
     }else {
         [UIView animateWithDuration:0.25f delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:0.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
             self.defaultEffectsView.left = 60;
@@ -237,32 +310,19 @@ static BOOL canScale = NO;
 
 - (void)onTapAction:(UITapGestureRecognizer *)sender {
     if(!canScale) {
-        self.effectImageView.image = [self.effectImages[self.effectIdx] imageWithDashBorder];
+//        self.effectImageView.image = self.effectImages[self.effectIdx] ;
+        [self.effectImageView hiddenAddition:NO];
         canScale = YES;
     }else{
-        self.effectImageView.image = self.effectImages[self.effectIdx];
+//        self.effectImageView.image = self.effectImages[self.effectIdx];
+        [self.effectImageView hiddenAddition:YES];
         canScale = NO;
     }
 }
 
 - (void)onSubmitAction:(id)sender {
     
-    self.cubicSpline = [self smoothLineWithArray:self.images];
-
-    SUKeyFrameProperty *currentProperty;
-    NSMutableArray *result = [NSMutableArray array];
-    for (UIImage *image in self.images) {
-        if(image.frameProperty && image.isKeyFrame) {
-            if(currentProperty == nil) {
-                currentProperty = image.frameProperty;
-            }else {
-                NSArray *array = [self caculateKeyFrameFrom:currentProperty toFrame:image.frameProperty WithImages:self.effectImages];
-                currentProperty = image.frameProperty;
-                [result addObjectsFromArray:array];
-            }
-        }
-    }
-    [self conductGIF:self.images withEffectImages:self.effectImages];
+    
 
 
 }
@@ -325,11 +385,28 @@ static BOOL canScale = NO;
     return images;
 }
 
+- (NSArray *)fetchImagesWithFilePath:(NSString *)imagePath {
+    SUGIFManager *manager = [SUGIFManager sharedInstance];
+    NSLog(@"tmp>>> %@", [NSURL fileURLWithPath: NSTemporaryDirectory()]);
+    NSArray *images = [manager covertGifToImages:imagePath];
+    if(images && images.count>0) {
+        UIImage *image = images[0];
+        self.gifSize   = image.size;
+    }
+    return images;
+}
+
 // 2. 选择特效Images(gif)
 - (NSArray *)fetchEffectImages:(NSString *)imagePath {
     NSString *gifPath1 = [[NSBundle mainBundle] pathForResource:imagePath ofType:@"gif"];
     SUGIFManager *manager = [SUGIFManager sharedInstance];
     NSArray *images1 = [manager covertGifToImages:gifPath1];
+    return images1;
+}
+
+- (NSArray *)fetchEffectImagesWithFilePath:(NSString *)imagePath {
+    SUGIFManager *manager = [SUGIFManager sharedInstance];
+    NSArray *images1 = [manager covertGifToImages:imagePath];
     return images1;
 }
 
@@ -575,19 +652,26 @@ static BOOL canScale = NO;
 
 }
 
-#pragma mark  UIImagePickerControllerDelegate   代理方法 (用来获取选中或者取消图片)
+#pragma mark - UIImagePickerControllerDelegate   代理方法 (用来获取选中或者取消图片)
 
 // chose选中某张图片,内含参数info,图片的信息.(选中后调用此方法)
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary
-                                                                                               *)info {
-    
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSLog(@"%@", info);
-    
+    NSURL *url = [info objectForKey:UIImagePickerControllerImageURL];
+    if(self.isSourceSelected) {
+        self.images = [self fetchImagesWithFilePath:url.relativePath];
+        [self.sourceImages reloadData];
+    }else {
+        self.effectImages = [self fetchEffectImagesWithFilePath:url.relativePath];
+        [self.effectImagesView reloadData];
+    }
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 // 取消的时候调用此方法.
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    
+    NSLog(@"cancel");
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -617,7 +701,7 @@ static BOOL canScale = NO;
         }
     }else {
         // 1. 手动添加效果图片
-        canScale = NO;
+        canScale = YES;
         self.effectIdx              = indexPath.item;
         self.effectImageView.image  = self.effectImages[indexPath.item];
         self.effectImageView.hidden = NO;
@@ -758,6 +842,15 @@ static BOOL canScale = NO;
         _videoOptionButton.backgroundColor = [UIColor redColor];
     }
     return _videoOptionButton;
+}
+
+- (UIButton *)sourceCollposeButton {
+    if(!_sourceCollposeButton) {
+        _sourceCollposeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _sourceCollposeButton.size = CGSizeMake(50, 50);
+        _sourceCollposeButton.backgroundColor = [UIColor redColor];
+    }
+    return _sourceCollposeButton;
 }
 
 - (UIImagePickerController *)picker {
