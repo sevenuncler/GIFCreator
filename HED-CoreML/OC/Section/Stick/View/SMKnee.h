@@ -11,6 +11,8 @@
 
 @interface SMKnee : SMSticker
 
+@property(nonatomic, strong) CAShapeLayer *kneeLayer;
+
 - (instancetype)initWithPoint:(CGPoint)point radium:(CGFloat)radius;
 
 @end

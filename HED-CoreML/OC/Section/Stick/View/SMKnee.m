@@ -10,7 +10,6 @@
 
 @interface SMKnee ()
 
-@property(nonatomic, strong) CAShapeLayer *kneeLayer;
 
 @property(nonatomic, assign) CGFloat kneeRadium;
 @property(nonatomic, assign) CGFloat lineWidth;
@@ -23,9 +22,8 @@
 
 @implementation SMKnee
 
-
 - (instancetype)initWithPoint:(CGPoint)point radium:(CGFloat)radius {
-    CGRect frame = CGRectMake(point.x - radius, point.y - radius, radius, radius);
+    CGRect frame = CGRectMake(point.x - radius, point.y - radius, 2*radius, 2*radius);
     if(self = [super initWithFrame:frame]) {
         self.kneeRadium = radius;
         [self.layer addSublayer:self.kneeLayer];
