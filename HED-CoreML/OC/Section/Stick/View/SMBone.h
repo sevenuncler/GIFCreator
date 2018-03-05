@@ -10,6 +10,7 @@
 
 @class SMKnee;
 @class SMBoneItem;
+@protocol SMBoneDelegate;
 
 @interface SMBone : SMSticker
 @property(nonatomic, assign) CGPoint beginPoint;
@@ -17,6 +18,15 @@
 @property(nonatomic, strong) SMKnee  *beginKneeView;
 @property(nonatomic, strong) SMKnee  *endKneeView;
 
+@property(nonatomic, strong) SMBoneItem *boneItem;
+@property(nonatomic, weak)   id<SMBoneDelegate> delegate;
+
 - (instancetype)initWithBegin:(CGPoint)beginPoint end:(CGPoint)endPoint;
 - (instancetype)initWithItem:(SMBoneItem *)item;
+@end
+
+@protocol SMBoneDelegate <NSObject>
+
+- (void)bone:(SMBone *)bone moveToOffset:(CGPoint)offset;
+
 @end

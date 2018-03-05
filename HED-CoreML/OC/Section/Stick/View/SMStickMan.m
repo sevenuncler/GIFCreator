@@ -18,6 +18,7 @@
 @property(nonatomic, assign) CGRect xFrame;
 @property(nonatomic, assign) CGFloat left;
 @property(nonatomic, assign) CGFloat top;
+@property(nonatomic, strong) UIView  *container;
 @end
 
 @implementation SMStickMan
@@ -25,33 +26,43 @@
 - (instancetype)initWithItem:(SMStickManItem *)item {
     if(self = [super initWithFrame:[item myFrame]]) {
         self.stickManItem = item;
-        [self addSubview:self.head];
-        [self addSubview:self.neck];
-        [self addSubview:self.shoulder];
         
-        [self addSubview:self.leftArm];
-        [self addSubview:self.leftForearm];
-        [self addSubview:self.leftHand];
+        [self addSubview:self.container];
+        [self.container addSubview:self.head];
+        [self.container addSubview:self.neck];
+        [self.container addSubview:self.shoulder];
         
-        [self addSubview:self.rightArm];
-        [self addSubview:self.rightForearm];
-        [self addSubview:self.rightHand];
+        [self.container addSubview:self.leftArm];
+        [self.container addSubview:self.leftForearm];
+        [self.container addSubview:self.leftHand];
         
-        [self addSubview:self.backbone];
+        [self.container addSubview:self.rightArm];
+        [self.container addSubview:self.rightForearm];
+        [self.container addSubview:self.rightHand];
         
-        [self addSubview:self.leftThigh];
-        [self addSubview:self.leftShins];
-        [self addSubview:self.leftfeet];
+        [self.container addSubview:self.backbone];
         
-        [self addSubview:self.rightThigh];
-        [self addSubview:self.rightShins];
-        [self addSubview:self.rightFeet];
+        [self.container addSubview:self.leftThigh];
+        [self.container addSubview:self.leftShins];
+        [self.container addSubview:self.leftfeet];
+        
+        [self.container addSubview:self.rightThigh];
+        [self.container addSubview:self.rightShins];
+        [self.container addSubview:self.rightFeet];
         
         
         
         self.backgroundColor = [UIColor whiteColor];
     }
     return self;
+}
+
+- (UIView *)container {
+    if(!_container) {
+        _container = [[UIView alloc] initWithFrame:CGRectMake(-self.xFrame.origin.x, -self.xFrame.origin.y, self.xFrame.size.width, self.xFrame.size.height)];
+        _container.backgroundColor = [UIColor redColor];
+    }
+    return _container;
 }
 
 - (CGRect)xFrame {

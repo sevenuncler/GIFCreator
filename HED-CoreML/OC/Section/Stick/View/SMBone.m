@@ -10,7 +10,7 @@
 #import "SMKnee.h"
 #import "SMBoneItem.h"
 
-@interface SMBone ()
+@interface SMBone ()<SMKneeDelegate>
 
 @property(nonatomic, assign) CGFloat x;
 @property(nonatomic, assign) CGFloat y;
@@ -42,6 +42,7 @@
     CGFloat height = fabs(item.beginPoint.y - item.endPoint.y);
     
     if(self = [self initWithFrame:CGRectMake(x, y, width, height)]) {
+        self.boneItem = item;
         _fillColor   = item.fillColor;
         _strokeColor = item.strokeColor;
         _beginPoint  = item.beginPoint;
@@ -49,7 +50,6 @@
         _lineWidth   = item.lineWidth;
         _kneeRadium  = item.kneeRadium;
         _needReDraw = YES;
-        
         [self.layer addSublayer:self.bone];
         [self addSubview:self.beginKneeView];
         [self addSubview:self.endKneeView];
@@ -68,10 +68,19 @@
         _kneeRadium = 8;
         _lineWidth  = 10;
         _needReDraw = YES;
+        
+        SMBoneItem *boneItem = [SMBoneItem new];
+        boneItem.beginPoint = beginPoint;
+        boneItem.endPoint   = endPoint;
+        boneItem.kneeRadium = _kneeRadium;
+        boneItem.lineWidth  = _lineWidth;
+        
+        self.boneItem = boneItem;
 
         [self.layer addSublayer:self.bone];
         [self addSubview:self.beginKneeView];
         [self addSubview:self.endKneeView];
+        [self setUpGestureRecoginzier];
     }
     return self;
 }
@@ -100,6 +109,33 @@
         }
     }
     return view;
+}
+
+- (void)setUpGestureRecoginzier {
+    UIPanGestureRecognizer *panGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanAction:)];
+    [self addGestureRecognizer:panGR];
+}
+
+- (void)onPanAction:(UIPanGestureRecognizer *)sender {
+    CGPoint offset = [sender translationInView:self];
+    self.beginPoint = CGPointMake(self.beginPoint.x + offset.x, self.beginPoint.y + offset.y);
+    self.endPoint   = CGPointMake(self.endPoint.x + offset.x, self.endPoint.y + offset.y);
+    if(self.delegate && [self.delegate respondsToSelector:@selector(bone:moveToOffset:)]) {
+        [self.delegate bone:self moveToOffset:offset];
+    }
+}
+
+#pragma mark - Delegate
+
+- (void)knee:(SMKnee *)knee moveToPoint:(CGPoint)center {
+    NSLog(@">>>>move %@", NSStringFromCGPoint(center));
+    if([knee isEqual:self.beginKneeView]) {
+        self.beginPoint = CGPointMake(self.beginPoint.x + center.x, self.beginPoint.y + center.y);
+    }else if([knee isEqual:self.endKneeView]) {
+        self.endPoint = CGPointMake(self.endPoint.x + center.x, self.endPoint.y + center.y);
+    }
+    [self setNeedsLayout];
+    [self.bone setNeedsLayout];
 }
 
 
@@ -172,6 +208,7 @@
 - (SMKnee *)beginKneeView {
     if(!_beginKneeView) {
         _beginKneeView = [[SMKnee alloc] initWithPoint:self.beginPointInternal radium:self.kneeRadium];
+        _beginKneeView.delegate = self;
     }
     return _beginKneeView;
 }
@@ -186,6 +223,7 @@
 - (SMKnee *)endKneeView {
     if(!_endKneeView) {
         _endKneeView = [[SMKnee alloc] initWithPoint:self.endPointInternal radium:self.kneeRadium];
+        _endKneeView.delegate = self;
     }
     return _endKneeView;
 }
@@ -200,6 +238,7 @@
 - (void)setBeginPoint:(CGPoint)beginPoint {
     if(!CGPointEqualToPoint(beginPoint, _beginPoint)) {
         _beginPoint = beginPoint;
+        _boneItem.beginPoint = _beginPoint;
         self.needReDraw = YES;
         [self.bone setNeedsDisplay];
     }
@@ -208,6 +247,7 @@
 - (void)setEndPoint:(CGPoint)endPoint {
     if(!CGPointEqualToPoint(endPoint, _endPoint)) {
         _endPoint = endPoint;
+        _boneItem.endPoint = _endPoint;
         self.needReDraw = YES;
         [self.bone setNeedsDisplay];
     }

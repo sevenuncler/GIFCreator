@@ -18,6 +18,7 @@
 		080F46B21F0A464C00588C92 /* UIImage+CVPixelBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080F46B11F0A464800588C92 /* UIImage+CVPixelBuffer.swift */; };
 		080F46B41F0A46E800588C92 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080F46B31F0A46E800588C92 /* UIImage+Resize.swift */; };
 		080F46B71F0A4AFA00588C92 /* pic1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 080F46B61F0A4AF400588C92 /* pic1.jpg */; };
+		872789A0204C355C001538A3 /* SMKneeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8727899F204C355C001538A3 /* SMKneeItem.m */; };
 		873A2AD4202E010600BD6F0F /* shq.gif in Resources */ = {isa = PBXBuildFile; fileRef = 873A2AD3202E010600BD6F0F /* shq.gif */; };
 		873A2AD920307BF000BD6F0F /* Edition3VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 873A2AD820307BF000BD6F0F /* Edition3VC.m */; };
 		873C52E320430B3000B61548 /* UIImageView+Boder.m in Sources */ = {isa = PBXBuildFile; fileRef = 873C52E220430B3000B61548 /* UIImageView+Boder.m */; };
@@ -84,6 +85,8 @@
 		080F46B11F0A464800588C92 /* UIImage+CVPixelBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+CVPixelBuffer.swift"; sourceTree = "<group>"; };
 		080F46B31F0A46E800588C92 /* UIImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 		080F46B61F0A4AF400588C92 /* pic1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pic1.jpg; sourceTree = "<group>"; };
+		8727899E204C355C001538A3 /* SMKneeItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SMKneeItem.h; sourceTree = "<group>"; };
+		8727899F204C355C001538A3 /* SMKneeItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SMKneeItem.m; sourceTree = "<group>"; };
 		873A2AD3202E010600BD6F0F /* shq.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = shq.gif; sourceTree = "<group>"; };
 		873A2AD720307BF000BD6F0F /* Edition3VC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Edition3VC.h; sourceTree = "<group>"; };
 		873A2AD820307BF000BD6F0F /* Edition3VC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Edition3VC.m; sourceTree = "<group>"; };
@@ -414,6 +417,8 @@
 			children = (
 				873C5328204A7D5100B61548 /* SUStickerItem.h */,
 				873C5329204A7D5100B61548 /* SUStickerItem.m */,
+				8727899E204C355C001538A3 /* SMKneeItem.h */,
+				8727899F204C355C001538A3 /* SMKneeItem.m */,
 				873C5337204BD69B00B61548 /* SMHeadItem.h */,
 				873C5338204BD69B00B61548 /* SMHeadItem.m */,
 				873C532E204A80D700B61548 /* SMBoneItem.h */,
@@ -433,10 +438,10 @@
 			children = (
 				873C531C20484B3F00B61548 /* SMSticker.h */,
 				873C531D20484B3F00B61548 /* SMSticker.m */,
-				873C531F20484B5C00B61548 /* SMBone.h */,
-				873C532020484B5C00B61548 /* SMBone.m */,
 				873C53252048559900B61548 /* SMKnee.h */,
 				873C53262048559900B61548 /* SMKnee.m */,
+				873C531F20484B5C00B61548 /* SMBone.h */,
+				873C532020484B5C00B61548 /* SMBone.m */,
 				873C533D204BD89400B61548 /* SMHead.h */,
 				873C533E204BD89400B61548 /* SMHead.m */,
 				873C5334204A854B00B61548 /* SMBoneHand.h */,
@@ -612,6 +617,7 @@
 				080F46AF1F0A45D200588C92 /* HED_so3.mlmodel in Sources */,
 				873C530C2046306100B61548 /* SUImagePickerCollectionViewCell.m in Sources */,
 				87B83EDB202C9694000A8818 /* SUPenView.m in Sources */,
+				872789A0204C355C001538A3 /* SMKneeItem.m in Sources */,
 				873C52EE20445B3000B61548 /* UIImageView+Decorator.m in Sources */,
 				873C5333204A83B500B61548 /* SMHandItem.m in Sources */,
 				080F46B21F0A464C00588C92 /* UIImage+CVPixelBuffer.swift in Sources */,

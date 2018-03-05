@@ -7,6 +7,7 @@
 //
 
 #import "SMKnee.h"
+#import "SMKneeItem.h"
 
 @interface SMKnee ()
 
@@ -25,21 +26,50 @@
 - (instancetype)initWithPoint:(CGPoint)point radium:(CGFloat)radius {
     CGRect frame = CGRectMake(point.x - radius, point.y - radius, 2*radius, 2*radius);
     if(self = [super initWithFrame:frame]) {
-        self.kneeRadium = radius;
+        SMKneeItem *kneeItem = [SMKneeItem new];
+        kneeItem.center = point;
+        kneeItem.kneeRadium = radius;
+        kneeItem.fillColor  = self.fillColor;
+        kneeItem.strokeColor = self.strokeColor;
+        self.kneeItem = kneeItem;
+        [self.layer addSublayer:self.kneeLayer];
+        [self setUpGestureRecoginzer];
+    }
+    return self;
+}
+
+- (instancetype)initWithItem:(SMKneeItem *)kneeItem {
+    if(self = [self initWithPoint:kneeItem.center radium:kneeItem.kneeRadium]){
+        self.kneeItem = kneeItem;
         [self.layer addSublayer:self.kneeLayer];
     }
     return self;
 }
 
+- (void)setUpGestureRecoginzer {
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanAction:)];
+    [self addGestureRecognizer:pan];
+    
+}
+
+- (void)onPanAction:(UIPanGestureRecognizer *)sender {
+    CGPoint offset = [sender translationInView:self];
+//    CGPoint center = CGPointMake(self.center.x + offset.x, self.center.y +offset.y );
+    [sender setTranslation:CGPointZero inView:self];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(knee:moveToPoint:)]) {
+        [self.delegate knee:self moveToPoint:offset];
+    }
+}
 
 - (CAShapeLayer *)kneeLayer {
     if(!_kneeLayer) {
         
         _kneeLayer = [CAShapeLayer layer];
-        _kneeLayer.frame = CGRectMake(0, 0, self.kneeRadium*2, self.kneeRadium*2);
+        CGFloat r = self.kneeItem.kneeRadium;
+        _kneeLayer.frame = CGRectMake(0, 0, r*2, r*2);
         
         UIBezierPath *path = [UIBezierPath bezierPath];
-        [path addArcWithCenter:CGPointMake(self.kneeRadium, self.kneeRadium) radius:self.kneeRadium startAngle:0 endAngle:M_PI*2 clockwise:YES];
+        [path addArcWithCenter:CGPointMake(r, r) radius:r startAngle:0 endAngle:M_PI*2 clockwise:YES];
         _kneeLayer.path = path.CGPath;
         
         _kneeLayer.fillColor = self.fillColor.CGColor;

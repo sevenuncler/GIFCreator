@@ -68,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HED-CoreML/OC/Section/Stick/View/SMBone.m"
-            timestampString = "541849904.499001"
+            timestampString = "541904705.592066"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "-layoutSubviews"
             landmarkType = "7">
          </BreakpointContent>
@@ -84,12 +84,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HED-CoreML/OC/Section/Stick/View/SMBone.m"
-            timestampString = "541849904.499077"
+            timestampString = "541904705.592591"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
             landmarkName = "-bone"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HED-CoreML/OC/Section/Stick/View/SMBone.m"
+            timestampString = "541904705.592952"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
+            landmarkName = "-setBeginPoint:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -100,45 +116,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HED-CoreML/OC/Section/Stick/View/SMBone.m"
-            timestampString = "541849904.499135"
+            timestampString = "541904735.754714"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "-beginKnee"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "-onPanAction:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[SMBone beginKnee]"
-                  moduleName = "HED-CoreML"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/fanghe/Workplace/HED-CoreML-master/HED-CoreML/OC/Section/Stick/View/SMBone.m"
-                  timestampString = "541849904.559756"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "108"
-                  endingLineNumber = "108"
-                  offsetFromSymbolStart = "60">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[SMBone beginKnee]"
-                  moduleName = "HED-CoreML"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/fanghe/Workplace/HED-CoreML-master/HED-CoreML/OC/Section/Stick/View/SMBone.m"
-                  timestampString = "541849904.562174"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "108"
-                  endingLineNumber = "108"
-                  offsetFromSymbolStart = "188">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
